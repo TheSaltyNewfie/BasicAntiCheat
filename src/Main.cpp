@@ -92,6 +92,39 @@ int ScanForStrings(const std::string& dllPath)
 	return 0;
 }
 
+void OnDLLChange(std::vector<std::string> dllPaths)
+{
+	int readout = 0;
+
+	for(int i = 0; i < dllPaths.size(); i++)
+	{
+		readout = ScanForStrings(dllPaths[i]);
+
+		if(readout == 1)
+		{
+			std::cout << "[LOG] Possible cheat found in file " << dllPaths[i] << ".\n";
+		}
+
+		std::cout << "[LOG] DLL was clean " << dllPaths[i] << ".\n";
+		readout = 0;
+	}
+}
+
+std::vector<std::string> GetNewDLLs(std::vector<std::string> originalList, std::vector<std::string> currentList)
+{
+	std::vector<std::string> newList;
+
+	for(const auto& dll : currentList)
+	{
+		if(std::find(originalList.begin(), originalList.end(), dll) == originalList.end())
+		{
+			newList.push_back(dll);
+		}
+	}
+
+	return newList;
+}
+
 int main()
 {
 	bool processFound = false;
@@ -100,6 +133,7 @@ int main()
 
 	std::vector<std::string> originalDlls;
 	std::vector<std::string> currentDlls;
+	std::vector<std::string> foundDlls;
 
 	float scanResetTime = 2.0f;
 
@@ -126,7 +160,15 @@ int main()
 		currentDlls = GetDLLS(processID);
 		if(currentDlls.size() > originalDlls.size())
 		{
-			std::cout << "[LOG] Change in DLL size: " << (currentDlls.size() - originalDlls.size()) << "\n";
+			std::cout << "[LOG] Change in DLL size: " << (currentDlls.size() - originalDlls.size()) << " PROCESS ID: " << processID << "\n";
+			foundDlls = GetNewDLLs(originalDlls, currentDlls);
+			OnDLLChange(foundDlls);
+			/*
+			for(int i = 0; i < foundDlls.size(); i++)
+			{
+				std::cout << "\t[DLLS] " << foundDlls[i] << "\n";
+			}
+			*/
 		}
 
 		auto endTime = std::chrono::steady_clock::now();

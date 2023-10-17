@@ -4,6 +4,7 @@
 #include <TlHelp32.h>
 #include <Psapi.h>
 #include <vector>
+#include "Utils/Detection.h"
 
 DWORD GetProcessId(const char* ProcessName)
 {
@@ -126,7 +127,16 @@ std::vector<std::string> GetNewDLLs(std::vector<std::string> originalList, std::
 }
 
 int main()
-{
+{ 
+	Library library;
+
+	library.Debug = true;
+
+	DWORD pid = 100103;
+
+	library.SetProcessID(pid);
+
+	/*
 	bool processFound = false;
 	DWORD processID = 0;
 	bool isRunning;
@@ -163,12 +173,12 @@ int main()
 			std::cout << "[LOG] Change in DLL size: " << (currentDlls.size() - originalDlls.size()) << " PROCESS ID: " << processID << "\n";
 			foundDlls = GetNewDLLs(originalDlls, currentDlls);
 			OnDLLChange(foundDlls);
-			/*
+			//
 			for(int i = 0; i < foundDlls.size(); i++)
 			{
 				std::cout << "\t[DLLS] " << foundDlls[i] << "\n";
 			}
-			*/
+			//
 		}
 
 		auto endTime = std::chrono::steady_clock::now();
@@ -180,7 +190,7 @@ int main()
 		if (remainingTime.count() > 0)
 			std::this_thread::sleep_for(remainingTime);
 	}
-	/*
+	
 	DWORD processID = GetProcessId("Muck.exe");
 
 	std::cout << "NOTEPAD PROCESS ID<< " << processID << "\n";

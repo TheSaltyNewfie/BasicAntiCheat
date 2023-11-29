@@ -25,7 +25,44 @@ DWORD Attach::GetProcessID(const char* ProcessName)
 	return 0;
 }
 
-void Attach::InjectBACInternal()
+/*
+void Attach::InjectBACInternal(const char* dllPath)
 {
-	
+	DWORD ProcessID = Attach::GetProcessID("javaw.exe");
+
+	printf("[Attach][Log]: Process ID: %i\n", ProcessID);
+
+	if (ProcessID == NULL)
+		printf("[Attach][Error]: Failed to get process ID\n");
+	printf("[Attach][Success]: Got process ID\n");
+
+	HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, ProcessID);
+	if(hProcess == NULL)
+		printf("[Attach][Error]: Failed to get process handle\n");
+	printf("[Attach][Success]: Got process handle\n");
+
+	LPVOID pDLLPath = VirtualAllocEx(hProcess, NULL, strlen(dllPath) + 1, MEM_COMMIT, PAGE_READWRITE);
+	if(pDLLPath == NULL)
+		printf("[Attach][Error]: Failed to allocate memory for %c\n", dllPath);
+	printf("[Attach][Success]: Allocated Memory for %c\n", dllPath);
+
+	if(!WriteProcessMemory(hProcess, pDLLPath, dllPath, strlen(dllPath) + 1, NULL))
+		printf("[Attach][Error]: Failed WriteProcessMemory\n");
+	printf("[Attach][Success]: Wrote process memory\n");
+
+	LPVOID pLoadLibraryA = (LPVOID)GetProcAddress(GetModuleHandle("kernel32.dll"), "LoadLibraryA");
+	if(pLoadLibraryA == NULL)
+		printf("[Attach][Error]: Failed to load DLL\n");
+	printf("[Attach][Success]: Loaded DLL\n");
+
+	HANDLE hThread = CreateRemoteThread(hProcess, NULL, 0, (LPTHREAD_START_ROUTINE)pLoadLibraryA, pDLLPath, 0, NULL);
+	if (hThread == NULL)
+		printf("[Attach][Error]: Failed to create remote thread\n");
+	printf("[Attach][Success]: Created remote thread\n");
+
+	WaitForSingleObject(hThread, INFINITE);
+	CloseHandle(hThread);
+	VirtualFreeEx(hProcess, pDLLPath, 0, MEM_RELEASE);
+	CloseHandle(hProcess);
 }
+*/

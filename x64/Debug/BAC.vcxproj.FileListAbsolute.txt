@@ -1,1 +1,2 @@
 C:\Users\tobyd\source\repos\BAC\x64\Debug\BAC.exe
+C:\Users\Toby\source\repos\TheSaltyNewfie\BasicAntiCheat\x64\Debug\BAC.exe

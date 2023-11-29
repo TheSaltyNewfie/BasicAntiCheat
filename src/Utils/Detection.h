@@ -5,32 +5,29 @@
 #include <TlHelp32.h>
 #include <Psapi.h>
 #include <vector>
+#include "logging.h"
 
 class Strings
 {
 public:
-	std::vector<std::string> GetStrings(bool allStrings);
-	int Scan(const std::string& dllPath);
+	// Implement strings at a later date
 
 private:
-	std::vector<std::string> AllStrings;
-	std::vector<std::string> DetectedStrings;
-
-	void SetStrings();
+	
 };
 
-class Library
-{
+class Library {
 public:
-	bool Debug = false;
-	DWORD GameProcessID;
-
-	std::vector<std::string> GetLibraries();
-
-	void SetProcessID(DWORD ProcessID);
+    void Initialize(DWORD processID, bool enableDebug);
+    std::vector<std::string> CompareLibrarySnapshots(const std::vector<std::string>& previousSnapshot);
+    std::vector<std::string> UpdateLibraries(std::vector<std::string> snapshot);
+    std::vector<std::string> GetCurrentLibraries();
+    void AssignProcessID(DWORD processID);
 
 private:
-	std::vector<std::string> Libraries;
+    DWORD gameProcessID;
+    bool debugMode = false;
+    std::vector<std::string> libraries;
 
-	void SetLibraries();
+    void InitializeLibraries();
 };

@@ -32,5 +32,11 @@
     <ClInclude Include="src\Utils\Attach.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Utils\logging.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\Utils\logging.tpp" />
   </ItemGroup>
 </Project>

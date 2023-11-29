@@ -13,7 +13,6 @@ public:
 
 	DWORD GetProcessID(const char* ProcessName);
 
-	void InjectBACInternal();
+	//void InjectBACInternal(const char* dllPath);
 private:
-
 };

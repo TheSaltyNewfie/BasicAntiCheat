@@ -138,6 +138,10 @@
   <ItemGroup>
     <ClInclude Include="src\Utils\Attach.h" />
     <ClInclude Include="src\Utils\Detection.h" />
+    <ClInclude Include="src\Utils\logging.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\Utils\logging.tpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

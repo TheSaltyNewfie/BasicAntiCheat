@@ -1,4 +1,5 @@
 ﻿  Main.cpp
-C:\Users\tobyd\source\repos\BAC\src\Main.cpp(132,7): warning C4101: 'isRunning': unreferenced local variable
-C:\Users\tobyd\source\repos\BAC\src\Main.cpp(61): warning C4715: 'GetDLLS': not all control paths return a value
-  BAC.vcxproj -> C:\Users\tobyd\source\repos\BAC\x64\Debug\BAC.exe
+  Detection.cpp
+  Generating Code...
+C:\Users\Toby\source\repos\TheSaltyNewfie\BasicAntiCheat\src\Main.cpp(64): warning C4715: 'GetDLLS': not all control paths return a value
+  BAC.vcxproj -> C:\Users\Toby\source\repos\TheSaltyNewfie\BasicAntiCheat\x64\Debug\BAC.exe

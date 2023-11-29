@@ -5,6 +5,8 @@
 #include <Psapi.h>
 #include <vector>
 #include "Utils/Detection.h"
+#include "Utils/Attach.h"
+#include "Utils/logging.h"
 
 DWORD GetProcessId(const char* ProcessName)
 {
@@ -127,14 +129,41 @@ std::vector<std::string> GetNewDLLs(std::vector<std::string> originalList, std::
 }
 
 int main()
-{ 
+{
+
+	Attach attach;
 	Library library;
 
-	library.Debug = true;
+	DWORD ProcessID = attach.GetProcessID("Muck.exe");
+	
+	library.Initialize(ProcessID, true);
 
-	DWORD pid = 100103;
+	std::string test;
 
-	library.SetProcessID(pid);
+	std::cin >> test;
+
+	std::vector<std::string> DLLs = library.UpdateLibraries(library.GetCurrentLibraries());
+
+	for (int i = 0; i < DLLs.size(); i++)
+	{
+		print("[//] %s\n", DLLs[i].c_str());
+	}
+
+	//Attach attach;
+
+	//attach.InjectBACInternal("BAC_Internal.dll");
+
+	//printf("[Main][Log] Injected fine\n");
+
+	//while (true);
+
+	//Library library;
+
+	//library.Debug = true;
+
+	//DWORD pid = 100103;
+
+	//library.SetProcessID(pid);
 
 	/*
 	bool processFound = false;
